@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evan Chesnokov</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f2e8;
+        --text: #1a1a1a;
+        --muted: #5e5e5e;
+        --accent: #d97757;
+        --border: #e0ded7;
+        --code-bg: #1e1e1e;
+        --serif: "Libre Baskerville", serif;
+        --sans: "Inter", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* --- Nav --- */
+      nav {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-name {
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.75rem;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      /* --- Sections --- */
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      section {
+        margin-bottom: 6rem;
+      }
+
+      .section-label {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+      }
+
+      /* --- Hero --- */
+      .hero {
+        padding: 4rem 0 5rem;
+      }
+
+      .hero h1 {
+        font-family: var(--serif);
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 400;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.5rem;
+        max-width: 660px;
+      }
+
+      .hero-body {
+        font-size: 1.05rem;
+        color: var(--muted);
+        max-width: 600px;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+      }
+
+      .hero-meta {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+      }
+
+      .hero-meta a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .hero-meta a:hover {
+        color: var(--accent);
+      }
+
+      .hero-meta .sep {
+        color: var(--border);
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 7px;
+        height: 14px;
+        background: var(--accent);
+        animation: blink 1s step-end infinite;
+        vertical-align: middle;
+        margin-left: 2px;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* --- Work --- */
+      .work-item {
+        border-top: 1px solid var(--border);
+        padding: 1.25rem 0;
+        transition: transform 0.15s ease;
+      }
+      .work-item:hover {
+        transform: translateX(4px);
+      }
+
+      .work-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.35rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .work-role {
+        font-family: var(--serif);
+        font-size: 1.05rem;
+        font-weight: 400;
+      }
+
+      .work-company {
+        font-weight: 700;
+      }
+
+      a.work-company {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      a.work-company:hover {
+        color: var(--accent);
+      }
+
+      .work-dates {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .work-desc {
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      .work-item.compact .work-header {
+        margin-bottom: 0;
+      }
+
+      /* --- Projects --- */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+      }
+
+      .project {
+        border-top: 1px solid var(--border);
+        padding-top: 1.25rem;
+      }
+
+      .project-num {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        color: var(--accent);
+        display: block;
+        margin-bottom: 0.75rem;
+      }
+
+      .project h3 {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        font-weight: 400;
+        margin-bottom: 0.6rem;
+      }
+
+      .project p {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      /* --- Writing --- */
+      .writing-item {
+        border-top: 1px solid var(--border);
+        padding: 1.5rem 0;
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.15s ease;
+      }
+      .writing-item:hover {
+        transform: translateX(4px);
+      }
+
+      .writing-title {
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        font-weight: 400;
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .writing-arrow {
+        font-family: var(--mono);
+        color: var(--accent);
+        opacity: 0;
+        transition: opacity 0.15s ease;
+        font-size: 0.9rem;
+      }
+      .writing-item:hover .writing-arrow {
+        opacity: 1;
+      }
+
+      .writing-excerpt {
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+        line-height: 1.6;
+      }
+
+      /* --- Footer --- */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 3rem 0 4rem;
+        text-align: center;
+      }
+
+      footer p {
+        font-family: var(--serif);
+        font-style: italic;
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .footer-links a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--accent);
+      }
+
+      /* --- Responsive --- */
+      @media (max-width: 640px) {
+        nav {
+          padding: 1.25rem 1rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.75rem;
+        }
+        .nav-links {
+          gap: 1.25rem;
+          font-size: 0.85rem;
+        }
+        .container {
+          padding: 0 1rem;
+        }
+        .hero {
+          padding: 2.5rem 0 3.5rem;
+        }
+        .hero-meta {
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: flex-start;
+        }
+        .hero-meta .sep {
+          display: none;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .work-header {
+          flex-direction: column;
+          gap: 0.15rem;
+        }
+        section {
+          margin-bottom: 4rem;
+        }
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="#" class="nav-name">Evan Chesnokov</a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="hero">
+        <h1>I build AI agents that ship to production.</h1>
+        <p class="hero-body">
+          Before this, I spent 8 years reporting for the BBC and The New York
+          Times. Physics background. Now I design agent infrastructure,
+          evaluation frameworks, and multi-agent coordination — and write the
+          code myself.
+        </p>
+        <div class="hero-meta">
+          <a href="mailto:chesnokovivan@gmail.com">chesnokovivan@gmail.com</a>
+          <span class="sep">/</span>
+          <a
+            href="https://github.com/chesnokovivan"
+            target="_blank"
+            rel="noopener"
+            >github.com/chesnokovivan</a
+          >
+        </div>
+      </div>
+
+      <!-- Work -->
+      <section id="work">
+        <div class="section-label">Work</div>
+
+        <div class="work-item">
+          <div class="work-header">
+            <div class="work-role">
+              <a
+                href="https://www.novakidschool.com"
+                target="_blank"
+                rel="noopener"
+                class="work-company"
+                >Novakid</a
+              >
+              — Applied AI Lead & Engineer
+            </div>
+            <div class="work-dates">2024 – present</div>
+          </div>
+          <div class="work-desc">
+            Report to CTO. Drive the company's transition to AI-native workflows
+            — build internal agents for engineering, ops, and marketing, hire
+            AI-native developers, run company-wide AI workshops. Shipped a
+            production code review agent (Claude Agent SDK) deployed across 14
+            repos.
+          </div>
+        </div>
+
+        <div class="work-item">
+          <div class="work-header">
+            <div class="work-role">
+              <a
+                href="https://selectal.ai"
+                target="_blank"
+                rel="noopener"
+                class="work-company"
+                >Selectal</a
+              >
+              (fka Aivy.cc) — AI Product Lead
+            </div>
+            <div class="work-dates">2024 – 2025</div>
+          </div>
+          <div class="work-desc">
+            Launched AI interviewer from 0→1. 723% ROI in week one. 1,000+
+            weekly AI interviews. Built eval infrastructure: code-based,
+            LLM-as-judge, and human review.
+          </div>
+        </div>
+
+        <div class="work-item">
+          <div class="work-header">
+            <div class="work-role">
+              <span class="work-company">AI Applied Consulting</span> — Founder
+            </div>
+            <div class="work-dates">2022 – present</div>
+          </div>
+          <div class="work-desc">
+            AI product strategy and LLM pipelines for startups.
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top: 3rem">Previously</div>
+
+        <div class="work-item compact">
+          <div class="work-header">
+            <div class="work-role">
+              Product Manager —
+              <a
+                href="https://replika.com"
+                target="_blank"
+                rel="noopener"
+                class="work-company"
+                >Replika</a
+              >,
+              <a
+                href="https://tripleten.com"
+                target="_blank"
+                rel="noopener"
+                class="work-company"
+                >TripleTen</a
+              >
+            </div>
+            <div class="work-dates">2020 – 2022</div>
+          </div>
+        </div>
+
+        <div class="work-item compact">
+          <div class="work-header">
+            <div class="work-role">Reporter — BBC, The New York Times</div>
+            <div class="work-dates">2012 – 2020</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects">
+        <div class="section-label">Projects</div>
+
+        <div class="projects-grid">
+          <div class="project">
+            <span class="project-num">01.</span>
+            <h3>Production Code Review Agent</h3>
+            <p>
+              Claude Agent SDK + FastAPI + MCP. 6 custom tools,
+              language-specific review, 404 regression tests. Deployed across 14
+              repositories via Docker/AWS ECR/Bitbucket Pipelines.
+            </p>
+          </div>
+
+          <div class="project">
+            <span class="project-num">02.</span>
+            <h3>Background Agents Platform</h3>
+            <p>
+              Internal background coding agent infrastructure. Cloudflare
+              Workers + Durable Objects for session isolation, Modal for
+              sandboxed dev environments, multiplayer collaboration. Slack,
+              GitHub, and Linear bot integrations.
+            </p>
+          </div>
+
+          <div class="project">
+            <span class="project-num">03.</span>
+            <h3>Dark Factory</h3>
+            <p>
+              Convergent agent development loop. Spawns fresh Claude Code agents
+              against a spec, validates against holdout tests the agent never
+              sees, and iterates with externalized context to keep each run flat
+              at ~20-50k tokens. 30/30 scenarios in 1 iteration for $1.04.
+            </p>
+          </div>
+
+          <div class="project">
+            <span class="project-num">04.</span>
+            <h3>Lux Transformer Team</h3>
+            <p>
+              9 Claude Code agents collaboratively built a programming language
+              interpreter from scratch. Coordination used
+              transformer-architecture primitives: shared residual stream,
+              normalization agent, file ownership. Zero interface mismatches
+              across independently written modules.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Writing -->
+      <section id="writing">
+        <div class="section-label">Writing</div>
+
+        <a href="writing/week-of-exponentials.html" class="writing-item">
+          <div class="writing-title">
+            The Week of Exponentials
+            <span class="writing-arrow">→</span>
+          </div>
+          <div
+            class="writing-date"
+            style="
+              font-family: var(--mono);
+              font-size: 0.78rem;
+              color: var(--muted);
+              margin-bottom: 0.4rem;
+            "
+          >
+            February 2026
+          </div>
+          <div class="writing-excerpt">
+            "Three things happened this past week. Three events from different
+            worlds. But I have a feeling they share the same pattern."
+          </div>
+        </a>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <div class="container">
+      <footer id="contact">
+        <div class="footer-links">
+          <a href="mailto:chesnokovivan@gmail.com">email</a>
+          <a
+            href="https://github.com/chesnokovivan"
+            target="_blank"
+            rel="noopener"
+            >github</a
+          >
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

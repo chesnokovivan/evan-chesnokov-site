@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Week of Exponentials — Evan Chesnokov</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f2e8;
+        --text: #1a1a1a;
+        --muted: #5e5e5e;
+        --accent: #d97757;
+        --border: #e0ded7;
+        --serif: "Libre Baskerville", serif;
+        --sans: "Inter", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      nav {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-name {
+        font-family: var(--serif);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+      }
+
+      .nav-back {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-back:hover {
+        color: var(--accent);
+      }
+
+      article {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 6rem;
+      }
+
+      article h1 {
+        font-family: var(--serif);
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        margin-bottom: 2.5rem;
+      }
+
+      article p {
+        margin-bottom: 1.25rem;
+        font-size: 1rem;
+      }
+
+      article ol {
+        margin-bottom: 1.25rem;
+        padding-left: 1.5rem;
+      }
+
+      article ol li {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      article hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 2.5rem 0;
+      }
+
+      article em {
+        font-style: italic;
+      }
+
+      .sources {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        font-size: 0.88rem;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .sources p {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        margin-bottom: 0.35rem;
+      }
+
+      @media (max-width: 640px) {
+        nav {
+          padding: 1.25rem 1rem;
+        }
+        article {
+          padding: 1.5rem 1rem 4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="../index.html" class="nav-name">Evan Chesnokov</a>
+      <a href="../index.html#writing" class="nav-back">← back</a>
+    </nav>
+
+    <article>
+      <h1>The Week of Exponentials</h1>
+
+      <p>Three things happened this past week:</p>
+
+      <ol>
+        <li>
+          The US and Israel struck Iran and killed Ayatollah Khamenei — the
+          supreme leader who had ruled the country with an iron fist for 35
+          years.
+        </li>
+        <li>
+          Jack Dorsey, ex-founder of Twitter and founder of Block, laid off
+          nearly half his company — four thousand people — explaining it with
+          one line: "the tools have changed what it means to be a company."
+        </li>
+        <li>
+          I was sick, drinking tea, and watching a system of Claude Code agents
+          autonomously work through a task I'd described in a single prompt:
+          each agent picked up where the previous one left off, tested,
+          committed, passed it on. Without me. I was watching because, honestly,
+          there was nothing left for me to do.
+        </li>
+      </ol>
+
+      <p>
+        Three events from different worlds. But I have a feeling they share the
+        same pattern.
+      </p>
+
+      <hr />
+
+      <p>
+        We're used to thinking about the world as a normal distribution. Most
+        events are average, predictable. Extremes are vanishingly rare. This
+        works for height, weight, the size of apples on a tree. You'll never
+        meet a person five times taller than average.
+      </p>
+
+      <p>
+        But some systems work differently — they follow power laws. And in those
+        systems, extreme events aren't just possible. They're inevitable.
+      </p>
+
+      <p>
+        Here's how it works. Every year, thousands of lightning strikes hit
+        forests. Most burn a single tree. Some burn a dozen. And once in a
+        decade, one bolt starts a fire that scorches an area the size of a
+        state. The cause is always the same — lightning. But the difference
+        isn't in the cause at all. It's in the state of the forest. When it's
+        too dense, when small fires have been suppressed for too long, the
+        system enters a critical state. Any small disturbance triggers a
+        cascade.
+      </p>
+
+      <p>
+        I think the world right now is that forest. And the cascades are
+        happening simultaneously.
+      </p>
+
+      <hr />
+
+      <p>Let me start with the one closest to physics.</p>
+
+      <p>
+        When Iran enriched uranium to 60%, most people (if anyone even noticed)
+        read it as "just over halfway to a bomb." But uranium enrichment is a
+        nonlinear process. 60% enrichment means 95% of the thermodynamic work is
+        already done. The path from 60% to weapons-grade isn't forty percent of
+        the effort — it's less than five. The window for a military response is
+        weeks, not years. Our linear intuition breaks down precisely when we
+        need it most.
+      </p>
+
+      <p>
+        Now AI. Late last year, I wrote about horses — about how the steam
+        engine improved steadily for 200 years, but the replacement of 90% of
+        horses happened in just twenty. METR, an organization that benchmarks AI
+        agent capabilities, publishes a graph: the "time horizon" — the length
+        of a task an agent can complete autonomously — doubles every 4–7 months.
+        Recently the trend accelerated: a doubling every four months.
+        Extrapolate the curve, and by 2027 agents will be autonomously
+        completing month-long tasks. Progress is gradual. The moment of
+        replacement is instant.
+      </p>
+
+      <p>
+        And then Dorsey. His letter is perhaps the first time the CEO of a
+        ten-thousand-person public company says it plainly: the business is
+        strong, profits are growing, but a smaller team with AI does more.
+        Cutting half the workforce wasn't a response to a crisis — it was an
+        acknowledgment of a new reality. The stock jumped 24% the same day. Yes,
+        Jack admits he overhired during COVID, but I think his decision has less
+        to do with that and more to do with the exponential growth in model
+        capability and autonomy.
+      </p>
+
+      <hr />
+
+      <p>
+        There's an analyst group that published a thought experiment this
+        February — a fictional financial report written from the perspective of
+        June 2028. The core question: what happens when the feedback loop has no
+        brake? AI improves → companies cut headcount → laid-off workers spend
+        less → companies invest more in AI → AI improves. They called it the
+        "intelligence displacement spiral" and ended with the line: "The canary
+        is still alive."
+      </p>
+
+      <p>
+        It's a scenario, of course, not a prediction. But when you read it the
+        same week Dorsey lays off four thousand and METR updates their graph —
+        the line between scenario and observation starts to blur.
+      </p>
+
+      <hr />
+
+      <p>
+        Are you uneasy? I am. Not because of any single event, but because of
+        the speed. Three systems — technological, geopolitical, economic — are
+        simultaneously in a critical state. Each one is a dense forest where
+        small fires have been suppressed for too long.
+      </p>
+
+      <p>
+        But what worries me most isn't the speed of change itself. It's what
+        we're trying to make sense of it with. Most people have always thought
+        on the surface: peasants didn't study monetary policy, factory workers
+        didn't read Adam Smith. Communists didn't read much beyond Marx's
+        religious texts. This isn't new. But the cost of shallow thinking used
+        to be low: the world changed slowly, and those who didn't understand
+        what was happening eventually caught up. Or ended up inside wars. In a
+        world of power laws, that cost grows exponentially.
+      </p>
+
+      <p>
+        I'm not a misanthrope. It's not just about people. The tools we use to
+        understand the world — reels, tweets, shorts, news feeds — are normal
+        distribution machines. They output the average opinion, the trending
+        reaction, the surface-level take. They are structurally incapable of
+        helping you think about exponentials. We're trying to understand a
+        power-law world with tools designed for a bell-curve one.
+      </p>
+
+      <p>
+        Nobody knows what to do about this gap. But I think the ability to stop
+        and think — not react, but actually think — might be the only asset we
+        have left. And it doesn't depreciate with the exponential.
+      </p>
+
+      <div class="sources">
+        <p>— METR, "Task-Completion Time Horizons of Frontier AI Models"</p>
+        <p>— Jack Dorsey, letter to Block employees, February 2026</p>
+        <p>— CitriniResearch, "The 2028 Global Intelligence Crisis"</p>
+        <p>— CIA, "Iran — Historical and Present Day Primer"</p>
+      </div>
+    </article>
+  </body>
+</html>

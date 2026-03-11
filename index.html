@@ -107,7 +107,7 @@
         top: 0.05em;
       }
 
-      .hero-character video {
+      .hero-character img {
         display: block;
         width: 100%;
         height: auto;
@@ -392,10 +392,12 @@
           I build AI agents that ship to production.<span
             class="hero-character"
             id="pixelMe"
-            ><video autoplay loop muted playsinline id="pixelVideo">
-              <source src="me_pixel_anim.mov" type='video/mp4; codecs="hvc1"' />
-              <source src="me_pixel_anim.webm" type="video/webm" /></video
-          ></span>
+            ><img
+              src="me_pixel_anim.apng"
+              alt=""
+              id="pixelImg"
+              draggable="false"
+          /></span>
         </h1>
         <p class="hero-body">
           Before this, I spent 8 years reporting for the BBC and The New York
@@ -603,27 +605,27 @@
     </div>
     <script>
       (function () {
-        var v = document.getElementById("pixelVideo");
-        if (!v) return;
+        var img = document.getElementById("pixelImg");
+        if (!img) return;
 
-        // Play for one loop (~4s), pause for 6s, repeat
+        var ANIM = "me_pixel_anim.apng";
+        var STILL = "me_pixel_still.png";
         var PLAY_DURATION = 4200;
         var PAUSE_DURATION = 6000;
 
-        function cycle() {
-          v.currentTime = 0;
-          v.play();
-          setTimeout(function () {
-            v.pause();
-            setTimeout(cycle, PAUSE_DURATION);
-          }, PLAY_DURATION);
+        function play() {
+          // Cache-bust forces APNG to restart from frame 1
+          img.src = ANIM + "?t=" + Date.now();
+          setTimeout(pause, PLAY_DURATION);
         }
 
-        // Let it play once on load, then start the cycle
-        setTimeout(function () {
-          v.pause();
-          setTimeout(cycle, PAUSE_DURATION);
-        }, PLAY_DURATION);
+        function pause() {
+          img.src = STILL;
+          setTimeout(play, PAUSE_DURATION);
+        }
+
+        // Play once on load, then start cycling
+        setTimeout(pause, PLAY_DURATION);
       })();
     </script>
   </body>

@@ -94,16 +94,34 @@
       /* --- Hero --- */
       .hero {
         padding: 4rem 0 5rem;
+        position: relative;
+      }
+
+      .hero-character {
+        display: inline-block;
+        width: 0.95em;
+        vertical-align: baseline;
+        pointer-events: none;
+        margin-left: 0.05em;
+        position: relative;
+        top: 0.05em;
+      }
+
+      .hero-character video {
+        display: block;
+        width: 100%;
+        height: auto;
+        image-rendering: pixelated;
       }
 
       .hero h1 {
         font-family: var(--serif);
         font-size: clamp(2rem, 4.5vw, 3.2rem);
         font-weight: 400;
-        line-height: 1.15;
+        line-height: 1.25;
         letter-spacing: -0.03em;
         margin-bottom: 1.5rem;
-        max-width: 660px;
+        max-width: 720px;
       }
 
       .hero-body {
@@ -370,7 +388,14 @@
 
     <div class="container">
       <div class="hero">
-        <h1>I build AI agents that ship to production.</h1>
+        <h1>
+          I build AI agents that ship to production.<span
+            class="hero-character"
+            id="pixelMe"
+            ><video autoplay loop muted playsinline id="pixelVideo">
+              <source src="me_pixel_anim.webm" type="video/webm" /></video
+          ></span>
+        </h1>
         <p class="hero-body">
           Before this, I spent 8 years reporting for the BBC and The New York
           Times. Physics background. Now I design agent infrastructure,
@@ -575,5 +600,30 @@
         </div>
       </footer>
     </div>
+    <script>
+      (function () {
+        var v = document.getElementById("pixelVideo");
+        if (!v) return;
+
+        // Play for one loop (~4s), pause for 6s, repeat
+        var PLAY_DURATION = 4200;
+        var PAUSE_DURATION = 6000;
+
+        function cycle() {
+          v.currentTime = 0;
+          v.play();
+          setTimeout(function () {
+            v.pause();
+            setTimeout(cycle, PAUSE_DURATION);
+          }, PLAY_DURATION);
+        }
+
+        // Let it play once on load, then start the cycle
+        setTimeout(function () {
+          v.pause();
+          setTimeout(cycle, PAUSE_DURATION);
+        }, PLAY_DURATION);
+      })();
+    </script>
   </body>
 </html>

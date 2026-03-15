@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Evan Chesnokov</title>
+    <link rel="icon" type="image/png" href="me_pixel_still.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -156,7 +157,7 @@
       }
 
       .cursor {
-        display: inline-block;
+        display: none;
         width: 7px;
         height: 14px;
         background: var(--accent);
@@ -373,6 +374,182 @@
       html {
         scroll-behavior: smooth;
       }
+
+      /* --- Terminal Mode (CRT dark mode) --- */
+      [data-theme="terminal"] {
+        --bg: #0a0a0a;
+        --text: #33ff00;
+        --muted: #22bb44;
+        --accent: #ffb000;
+        --border: #1a3a1a;
+        --glow: rgba(51, 255, 0, 0.4);
+      }
+
+      [data-theme="terminal"] body,
+      [data-theme="terminal"] h1,
+      [data-theme="terminal"] h3,
+      [data-theme="terminal"] p,
+      [data-theme="terminal"] a,
+      [data-theme="terminal"] .nav-name,
+      [data-theme="terminal"] .work-role,
+      [data-theme="terminal"] .writing-title,
+      [data-theme="terminal"] .work-desc,
+      [data-theme="terminal"] .writing-excerpt,
+      [data-theme="terminal"] .hero-body,
+      [data-theme="terminal"] footer p {
+        font-family: var(--mono);
+      }
+
+      /* Scanlines overlay */
+      [data-theme="terminal"] body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 1px,
+          rgba(0, 0, 0, 0.06) 1px,
+          rgba(0, 0, 0, 0.06) 2px
+        );
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      /* Vignette */
+      [data-theme="terminal"] body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 50%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+        pointer-events: none;
+        z-index: 9998;
+      }
+
+      /* Phosphor glow */
+      [data-theme="terminal"] h1,
+      [data-theme="terminal"] .section-label,
+      [data-theme="terminal"] .project-num {
+        text-shadow:
+          0 0 5px var(--glow),
+          0 0 15px var(--glow);
+      }
+
+      /* Gentle flicker */
+      @keyframes crt-flicker {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        92% {
+          opacity: 0.98;
+        }
+        95% {
+          opacity: 0.96;
+        }
+        97% {
+          opacity: 0.99;
+        }
+      }
+      [data-theme="terminal"] .container {
+        animation: crt-flicker 4s ease-in-out infinite;
+      }
+
+      /* Section label prompt prefix */
+      [data-theme="terminal"] .section-label::before {
+        content: "> ";
+      }
+
+      /* Cursor visible in terminal mode */
+      [data-theme="terminal"] .cursor {
+        display: inline-block;
+        background: var(--text);
+      }
+
+      /* Link hover glow in terminal mode */
+      [data-theme="terminal"] a:hover {
+        text-shadow: 0 0 8px var(--glow);
+      }
+
+      /* CRT power-on animation */
+      @keyframes crt-on {
+        0% {
+          filter: brightness(30);
+          transform: scaleY(0.005);
+        }
+        40% {
+          transform: scaleY(1.05);
+          filter: brightness(2);
+        }
+        70% {
+          transform: scaleY(0.98);
+          filter: brightness(1.2);
+        }
+        100% {
+          filter: brightness(1);
+          transform: scaleY(1);
+        }
+      }
+
+      @keyframes crt-off {
+        0% {
+          filter: brightness(1);
+          transform: scaleY(1);
+        }
+        60% {
+          filter: brightness(10);
+          transform: scaleY(0.005);
+        }
+        100% {
+          filter: brightness(0);
+          transform: scaleY(0);
+        }
+      }
+
+      .crt-on {
+        animation: crt-on 0.4s ease-out forwards;
+      }
+
+      .crt-off {
+        animation: crt-off 0.3s ease-in forwards;
+      }
+
+      /* Theme toggle button */
+      .theme-toggle {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        color: var(--muted);
+        background: none;
+        border: 1px solid var(--border);
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+        letter-spacing: 0.02em;
+        line-height: 1;
+      }
+      .theme-toggle:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      [data-theme="terminal"] .theme-toggle {
+        text-shadow: 0 0 5px var(--glow);
+      }
+
+      /* Background glow in terminal mode */
+      [data-theme="terminal"] body {
+        background: #0a0a0a
+          radial-gradient(
+            ellipse at 50% 30%,
+            rgba(51, 255, 0, 0.03) 0%,
+            transparent 70%
+          );
+      }
     </style>
   </head>
   <body>
@@ -383,6 +560,13 @@
         <a href="#projects">Projects</a>
         <a href="#writing">Writing</a>
         <a href="#contact">Contact</a>
+        <button
+          class="theme-toggle"
+          aria-label="Toggle terminal mode"
+          title="Terminal mode"
+        >
+          &gt;_
+        </button>
       </div>
     </nav>
 
@@ -396,8 +580,8 @@
               src="me_pixel_anim.apng"
               alt=""
               id="pixelImg"
-              draggable="false"
-          /></span>
+              draggable="false" /></span
+          ><span class="cursor"></span>
         </h1>
         <p class="hero-body">
           Before this, I spent 8 years reporting for the BBC and The New York
@@ -603,6 +787,41 @@
         </div>
       </footer>
     </div>
+    <script>
+      (function () {
+        var toggle = document.querySelector(".theme-toggle");
+
+        function openTerminal() {
+          // Black backdrop behind the body so scaleY reveals black, not beige
+          document.documentElement.style.background = "#000";
+          // CRT-off animation on the main page
+          document.body.classList.add("crt-off");
+          document.body.addEventListener(
+            "animationend",
+            function () {
+              // Navigate to terminal page
+              window.location.href = "terminal/index.html";
+            },
+            { once: true },
+          );
+        }
+
+        // Toggle button opens terminal
+        toggle.addEventListener("click", openTerminal);
+
+        // Easter egg: type "crt" anywhere
+        var keyBuffer = "";
+        document.addEventListener("keydown", function (e) {
+          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+            return;
+          keyBuffer += e.key.toLowerCase();
+          if (keyBuffer.length > 10) keyBuffer = keyBuffer.slice(-10);
+          if (keyBuffer.endsWith("crt")) {
+            openTerminal();
+          }
+        });
+      })();
+    </script>
     <script>
       (function () {
         var img = document.getElementById("pixelImg");

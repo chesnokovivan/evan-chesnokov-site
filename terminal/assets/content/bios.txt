@@ -1,0 +1,22 @@
+@@@
+EvanOS v1.0
+
+ EVAN
+ CHESNOKOV
+
+@@@
+AI agents........... [OK]
+@@@
+BBC & NYT........... [OK]
+@@@
+Physics............. [OK]
+@@@
+Deploys (14 repos).. [OK]
+@@@
+Multi-agent coord... [OK]
+@@@
+Building............ [OK]
+@@@
+
+Boot complete. [GUEST]
+[Type 'HELP' for commands]

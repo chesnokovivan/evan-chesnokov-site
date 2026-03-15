@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Week of Exponentials — Evan Chesnokov</title>
+    <link rel="icon" type="image/png" href="../me_pixel_still.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -128,12 +129,129 @@
           padding: 1.5rem 1rem 4rem;
         }
       }
+
+      /* --- Terminal Mode (CRT dark mode) --- */
+      [data-theme="terminal"] {
+        --bg: #0a0a0a;
+        --text: #33ff00;
+        --muted: #22bb44;
+        --accent: #ffb000;
+        --border: #1a3a1a;
+        --glow: rgba(51, 255, 0, 0.4);
+      }
+
+      [data-theme="terminal"] body,
+      [data-theme="terminal"] h1,
+      [data-theme="terminal"] p,
+      [data-theme="terminal"] a,
+      [data-theme="terminal"] li,
+      [data-theme="terminal"] .nav-name,
+      [data-theme="terminal"] .sources p {
+        font-family: var(--mono);
+      }
+
+      [data-theme="terminal"] body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 1px,
+          rgba(0, 0, 0, 0.06) 1px,
+          rgba(0, 0, 0, 0.06) 2px
+        );
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      [data-theme="terminal"] body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 50%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+        pointer-events: none;
+        z-index: 9998;
+      }
+
+      [data-theme="terminal"] h1 {
+        text-shadow:
+          0 0 5px var(--glow),
+          0 0 15px var(--glow);
+      }
+
+      @keyframes crt-flicker {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        92% {
+          opacity: 0.98;
+        }
+        95% {
+          opacity: 0.96;
+        }
+        97% {
+          opacity: 0.99;
+        }
+      }
+      [data-theme="terminal"] article {
+        animation: crt-flicker 4s ease-in-out infinite;
+      }
+
+      [data-theme="terminal"] a:hover {
+        text-shadow: 0 0 8px var(--glow);
+      }
+
+      [data-theme="terminal"] body {
+        background: #0a0a0a
+          radial-gradient(
+            ellipse at 50% 30%,
+            rgba(51, 255, 0, 0.03) 0%,
+            transparent 70%
+          );
+      }
+
+      .theme-toggle {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        color: var(--muted);
+        background: none;
+        border: 1px solid var(--border);
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+        letter-spacing: 0.02em;
+        line-height: 1;
+      }
+      .theme-toggle:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      [data-theme="terminal"] .theme-toggle {
+        text-shadow: 0 0 5px var(--glow);
+      }
     </style>
   </head>
   <body>
     <nav>
       <a href="../index.html" class="nav-name">Evan Chesnokov</a>
-      <a href="../index.html#writing" class="nav-back">← back</a>
+      <div style="display: flex; align-items: center; gap: 1rem">
+        <a href="../index.html#writing" class="nav-back">← back</a>
+        <button
+          class="theme-toggle"
+          aria-label="Toggle terminal mode"
+          title="Terminal mode"
+        >
+          &gt;_
+        </button>
+      </div>
     </nav>
 
     <article>
@@ -293,5 +411,37 @@
         <p>— CIA, "Iran — Historical and Present Day Primer"</p>
       </div>
     </article>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var toggle = document.querySelector(".theme-toggle");
+        var STORAGE_KEY = "theme";
+
+        function isTerminal() {
+          return root.getAttribute("data-theme") === "terminal";
+        }
+
+        function applyTheme(theme) {
+          if (theme === "terminal") {
+            root.setAttribute("data-theme", "terminal");
+          } else {
+            root.removeAttribute("data-theme");
+          }
+        }
+
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          applyTheme(saved);
+        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          applyTheme("terminal");
+        }
+
+        toggle.addEventListener("click", function () {
+          var next = isTerminal() ? "light" : "terminal";
+          localStorage.setItem(STORAGE_KEY, next);
+          applyTheme(next);
+        });
+      })();
+    </script>
   </body>
 </html>

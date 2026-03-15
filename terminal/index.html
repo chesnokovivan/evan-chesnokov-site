@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Evan Chesnokov — Terminal</title>
+    <meta
+      name="description"
+      content="Evan Chesnokov — Applied AI Lead & Engineer. Interactive terminal portfolio."
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/png" href="../me_pixel_still.png" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        background: #000;
+      }
+      #container {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      #container:fullscreen {
+        width: 100%;
+        height: 100%;
+        background: black;
+      }
+      #container:fullscreen canvas {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Exit button */
+      #exit-btn {
+        position: fixed;
+        top: 10px;
+        right: 14px;
+        z-index: 9999;
+        background: none;
+        border: 1px solid rgba(255, 176, 0, 0.25);
+        color: rgba(255, 176, 0, 0.5);
+        font-family: "Terminus", "JetBrains Mono", monospace;
+        font-size: 11px;
+        padding: 4px 10px;
+        cursor: pointer;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+        letter-spacing: 0.05em;
+      }
+      #exit-btn:hover {
+        color: rgba(255, 176, 0, 0.9);
+        border-color: rgba(255, 176, 0, 0.6);
+      }
+
+      /* Larger tap target on mobile */
+      @media (max-width: 768px) {
+        #exit-btn {
+          font-size: 13px;
+          padding: 8px 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <button id="exit-btn" title="Back to site">&times; exit</button>
+    <script src="dist/index.global.js"></script>
+    <script>
+      document
+        .getElementById("exit-btn")
+        .addEventListener("click", function () {
+          window.location.href = "../index.html";
+        });
+    </script>
+  </body>
+</html>
